@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>请登录</title>
+<style type="text/css">
+	body{
+		background-image: url("CameraRoll/a.jpg");
+	}
+	#d1{
+		height: 400px;
+		width: 300px;
+		background-color: white;
+		margin: 200px auto;
+		background-image: url("CameraRoll/2.jpg");
+	}
+	input{
+		margin-top: 30px;
+		margin-left: 10px;
+	}
+	span{
+		margin-left: 30px;
+		color: white;
+	}
+	.denglu{
+		margin-left: 130px;
+	}
+	#d2{
+		color: white;
+	}
+</style>
+</head>
+<body>
+	<div id="d1">
+		<form id="form-login">
+				<span>用户名:<input type="text" name="username"></span> 
+				<span id="username"></span>
+				<br>
+				<span>密&nbsp;&nbsp;&nbsp;码:<input type="password"name="password"></span> 
+				<span id="password"></span>
+				<br>
+				<input type="button" value="登录"class="denglu" id="btn_login">
+		</form>
+	</div>
+	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+	<script type="text/javascript">
+		$("#btn_login").click(function(){
+			$("#username").html("");
+			$("#password").html("");
+			$.ajax({
+				"url":"user/handle_login",
+				"data":$("#form-login").serialize(),
+				"type":"post",
+				"dataType":"json",
+				"success":function(obj){
+					if(obj.state==0){
+						$("#username").html(obj.message);
+					}else if(obj.state==1){
+						window.location.href="home.html";
+					}else{
+						$("#password").html(obj.message);
+					}
+				}
+			})
+		})
+	</script>
+</body>
+
+</html>
